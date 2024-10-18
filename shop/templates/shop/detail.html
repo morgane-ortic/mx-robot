@@ -2,9 +2,12 @@
 
 {% block content %}
 
-<h1>{{ product.title }}</h1>
-<p>
-    {{ product.description }}
-</p>
+<div style="max-width: 600px;">
+<h1>{{ product.name }}</h1>
+    <p><strong>{{product.price}} €</strong></p>
+    <p style="text-align: justify;">
+        {{ product.description }}
+    </p>
+</div>
 
 {% endblock %}
