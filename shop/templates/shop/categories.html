@@ -5,8 +5,8 @@
 
 
 <ul>
-    {% for category in shop.categories %}
-        <li><a href="{% url 'category' category %}">{{ category }}</a></li>
+    {% for category in categories %}
+        <li><a href="{% url 'shop:category' category %}">{{ category }}</a></li>
     {% endfor %}
 </ul>
 
