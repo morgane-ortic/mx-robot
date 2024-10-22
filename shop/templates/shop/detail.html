@@ -3,11 +3,20 @@
 {% block content %}
 
 <div style="max-width: 600px;">
-<h1>{{ product.name }}</h1>
-    <p><strong>{{product.price}} €</strong></p>
-    <p style="text-align: justify;">
-        {{ product.description }}
-    </p>
+
+    <h1>{{ product.name }}</h1>
+    {% if product.stock <= 0 %}
+        <h2 style="color:Red;">OUT OF ORDER</h2>
+    {% endif %}
+        <h2>{{product.price}} €</h2>
+        <p style="text-align: justify;">
+            {{ product.description }}
+        </p>
+
+        <form method="post" action="{% url 'shop:add_to_cart' product.pk %}">
+            {% csrf_token %}
+            <button type="submit">Add to Cart</button>
+        </form>
 </div>
 
 {% endblock %}
