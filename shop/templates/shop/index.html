@@ -8,7 +8,7 @@
     {% for product in products %}
     <li>
         <ul>
-            <a href="{% url 'detail' product.id %}">
+            <a href="{% url 'shop:detail' product.id %}">
                 <li>{{ product.name }}</li>
                 <li>{{ product.price }} €</li>
             </a>
