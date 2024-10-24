@@ -8,8 +8,16 @@
 <body>
 
     <nav>
-        <a href="{% url 'shop:list_products' %}">Home</a> | <a href="{% url 'shop:categories' %}">Categories</a> | Shopping Cart
+        <a href="{% url 'shop:home' %}">Home</a> | <a href="{% url 'shop:categories' %}">Categories</a> | <a href="{% url 'shop:login' %}">Log in</a> | 
+        <form id="logout-form" action="{% url 'shop:log_out' %}" method="post" style="display: none;">
+            {% csrf_token %}
+        </form>
+        <a href="#" onclick="document.getElementById('logout-form').submit();">Log out</a>
+        | <a href="{% url 'shop:register' %}">Register</a>
     </nav>
+
+    <h1>MX. ROBOT</h1>
+    <h3>Gaming PCs and Equipment</h3>
 
     {% block content %}
     {% endblock %}
