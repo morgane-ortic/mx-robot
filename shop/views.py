@@ -37,7 +37,10 @@ def register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         email = request.POST.get('email')
-        User.objects.create_user(username=username, password=password, email=email)
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
+        User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
         return redirect('shop:login')
     return render(request, 'shop/register.html')
 
@@ -58,3 +61,21 @@ def sort_category(request, category):
     if not category_products.exists():
         return redirect('/')
     return render(request, 'shop/home.html', {'products': category_products})
+
+def add_to_cart(request, pk):
+    product = Product.objects.get(id=pk)
+
+    if 'temp_customer_id' not in request.session:
+        temp_customer = Customer.objects.create(first_name='Temp', last_name='Customer')
+        request.session['temp_customer_id'] = temp_customer.id
+    else:
+        temp_customer = Customer.objects.get(id=request.session['temp_customer_id'])
+    customer = temp_customer
+
+    # Add the product to the cart
+    cart_item, created = Cart.objects.get_or_create(customer=customer, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('shop:list_products')
